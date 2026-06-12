@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  vaultId     String        @unique
+  name        String
+  email       String        @unique
+  phone       String?
+  dob         String?
+  address     String?
+  password    String
+  createdAt   DateTime      @default(now())
+  permissions Permission[]
+}
+
+model Website {
+  id          Int           @id @default(autoincrement())
+  name        String
+  email       String        @unique
+  apiKey      String        @unique
+  createdAt   DateTime      @default(now())
+  permissions Permission[]
+}
+
+model Permission {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  websiteId      Int
+  canSeeName     Boolean  @default(false)
+  canSeeEmail    Boolean  @default(false)
+  canSeePhone    Boolean  @default(false)
+  canSeeDob      Boolean  @default(false)
+  canSeeAddress  Boolean  @default(false)
+  user           User     @relation(fields: [userId], references: [id])
+  website        Website  @relation(fields: [websiteId], references: [id])
+}
