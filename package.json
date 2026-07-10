@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "npx prisma generate && node src/index.js",
-    "test": "echo \"No tests yet\"",
-    "postinstall": "prisma generate"
-  },
+ "scripts": {
+  "start": "chmod +x node_modules/.bin/prisma node_modules/prisma/blns/* 2>/dev/null || true && npx prisma generate && node src/index.js",
+  "test": "echo \"No tests yet\"",
+  "postinstall": "prisma generate"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
